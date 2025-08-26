@@ -23,8 +23,7 @@ export default function BaseCheckbox({ name, rules, ...props }: BaseCheckboxProp
     <Checkbox
       {...props}
       checked={field.value}
-      defaultSelected={field.value}
-      onChange={field.onChange}
+      onValueChange={field.onChange}
       onBlur={field.onBlur}
       isInvalid={!!error}
     />
