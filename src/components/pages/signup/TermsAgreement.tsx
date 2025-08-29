@@ -6,7 +6,7 @@ export default function TermsArgreement() {
   const allTerms = ["required", "optional"];
 
   return (
-    <div className="flex flex-col items-start w-full my-5 text-primary-gray">
+    <div className="flex flex-col gap-2 my-5">
       <AllAgreedCheckbox agreementNames={allTerms} />
       <hr className="w-full border-primary-gray opacity-80" />
 
