@@ -1,20 +1,24 @@
-import { Checkbox, CheckboxGroup } from "@heroui/react";
+import AllAgreedCheckbox from "@/components/common/checkbox/AllAgreedCheckbox";
+import BaseCheckboxGroup from "@/components/common/checkbox/BaseCheckboxGroup";
+import { Checkbox } from "@heroui/react";
 
 export default function TermsArgreement() {
+  const allTerms = ["required", "optional"];
+
   return (
-    <CheckboxGroup
-      className="flex flex-col items-start w-full my-5 text-primary-gray"
-      classNames={{
-        base: "w-full",
-        wrapper: "w-full",
-      }}
-    >
-      <Checkbox>모두 동의합니다</Checkbox>
+    <div className="flex flex-col items-start w-full my-5 text-primary-gray">
+      <AllAgreedCheckbox agreementNames={allTerms} />
       <hr className="w-full border-primary-gray opacity-80" />
-      <Checkbox>[필수] 이용약관 동의</Checkbox>
-      <Checkbox>[필수] 개인정보 수집 및 이용동의</Checkbox>
-      <Checkbox>[필수] 개인정보 처리 위탁동의</Checkbox>
-      <Checkbox>[선택] 광고성 정보 수신 동의</Checkbox>
-    </CheckboxGroup>
+
+      <BaseCheckboxGroup name="required">
+        <Checkbox value="terms">[필수] 이용약관 동의</Checkbox>
+        <Checkbox value="privacy">[필수] 개인정보 수집 및 이용동의</Checkbox>
+        <Checkbox value="data">[필수] 개인정보 처리 위탁동의</Checkbox>
+      </BaseCheckboxGroup>
+
+      <BaseCheckboxGroup name="optional">
+        <Checkbox value="ad_info">[선택] 광고성 정보 수신 동의</Checkbox>
+      </BaseCheckboxGroup>
+    </div>
   );
 }
