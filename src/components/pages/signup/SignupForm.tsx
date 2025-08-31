@@ -27,10 +27,21 @@ export default function SignUpForm() {
   const { onOpen, Modal } = useModal();
   const router = useRouter();
   const password = methods.watch("password");
+  const requiredTerms = methods.watch("required") || [];
   const { errors, isValid } = methods.formState;
 
+  const isRequiredTermsAgreed =
+    Array.isArray(requiredTerms) &&
+    requiredTerms.includes("terms") &&
+    requiredTerms.includes("privacy") &&
+    requiredTerms.includes("data");
+
   const isSubmitDisabled =
-    !isValid || Object.keys(errors).length > 0 || !isEmailSend || !isEmailVerify;
+    !isValid ||
+    Object.keys(errors).length > 0 ||
+    !isEmailSend ||
+    !isEmailVerify ||
+    !isRequiredTermsAgreed;
 
   return (
     <>
