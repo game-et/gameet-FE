@@ -8,6 +8,8 @@ export interface SignUpFormData {
   authCode: string;
   password: string;
   passwordCheck: string;
+  required: string[];
+  optional: string[];
 }
 
 export function useSignUpForm(onSuccessCallback?: () => void) {
@@ -17,6 +19,8 @@ export function useSignUpForm(onSuccessCallback?: () => void) {
     defaultValues: {
       email: "",
       password: "",
+      required: [],
+      optional: [],
     },
   });
   const signUpMutation = useSignUpMutation();
@@ -30,9 +34,22 @@ export function useSignUpForm(onSuccessCallback?: () => void) {
   });
 
   const onSubmit = (formData: SignUpFormData) => {
+    const requiredTerms = formData.required || [];
+    const isRequiredTermsAgreed =
+      requiredTerms.includes("terms") &&
+      requiredTerms.includes("privacy") &&
+      requiredTerms.includes("data");
+
+    if (!isRequiredTermsAgreed) {
+      methods.setError("required", {
+        type: "manual",
+        message: "필수 약관에 모두 동의해 주세요.",
+      });
+      return;
+    }
+
     signUpMutation.mutate(formData);
   };
-
   return {
     methods,
     onSubmit,
